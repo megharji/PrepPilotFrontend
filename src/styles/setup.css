@@ -264,6 +264,30 @@
   color: #fff;
 }
 
+/* ============ Tech stack "Other" ============ */
+.tech-other {
+  display: block;
+  margin-top: 12px;
+  max-width: 360px;
+}
+
+.tech-other__input {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+}
+
+.tech-other__input:focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 4px var(--brand-soft);
+}
+
 /* ============ Job description ============ */
 .jd-input {
   width: 100%;

@@ -78,12 +78,20 @@ export const useSpeechInput = (onText: (text: string) => void) => {
 };
 
 // Interviewer ka sawaal bol ke sunana
-export const speak = (text: string) => {
-  if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+// onEnd: line poori bol li (ya bol hi nahi paye) tab. Interview ki aakhri line ke baad hi aage badhte hain.
+export const speak = (text: string, onEnd?: () => void) => {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) {
+    onEnd?.();
+    return;
+  }
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = "en-US";
   utterance.rate = 1;
+  if (onEnd) {
+    utterance.onend = onEnd;
+    utterance.onerror = onEnd;
+  }
   window.speechSynthesis.speak(utterance);
 };
 

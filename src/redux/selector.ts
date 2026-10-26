@@ -18,10 +18,20 @@ export const selectMyInterviews = createSelector(
   (byUser, user) => (user ? (byUser[user.id] ?? NO_INTERVIEWS) : NO_INTERVIEWS),
 );
 
-export const selectInterviewById = (state: RootState, id: string) =>
-  selectMyInterviews(state).find((i) => i.id === id);
-
 export const selectInterviewConfig = (state: RootState) => state.interviewSetup.config;
 export const selectResumeUpload = (state: RootState) => state.resume;
 export const selectCreateInterview = (state: RootState) => state.createInterview;
 export const selectSnackbars = (state: RootState) => state.snackbar.items;
+export const selectInterviewList = (state: RootState) => state.interviewList;
+export const selectInterviewDetail = (state: RootState) => state.interviewDetail;
+export const selectAiInterview = (state: RootState) => state.aiInterview;
+
+// Backend interview id -> is browser me save hui report (score/answers). Backend abhi score save nahi karta.
+export const selectLocalReportsByServerId = createSelector([selectMyInterviews], (records) => {
+  const map = new Map<number, InterviewRecord>();
+  records.forEach((r) => {
+    if (r.serverId !== undefined && !map.has(r.serverId)) map.set(r.serverId, r);
+  });
+  return map;
+});
+export const selectDeleteInterview = (state: RootState) => state.deleteInterview;

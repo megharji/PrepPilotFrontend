@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import Logo from "../components/Logo";
 import ProfileMenu from "../components/ProfileMenu";
+import ThemeToggle from "../components/ThemeToggle";
 import { useAppDispatch } from "../redux/hooks";
 import { profileRequest } from "../redux/reducers/User/profileReducer";
 
@@ -30,6 +31,7 @@ const AppLayout = () => {
               History
             </NavLink>
           </nav>
+          <ThemeToggle />
           <ProfileMenu />
         </div>
       </header>

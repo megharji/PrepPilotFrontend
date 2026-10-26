@@ -12,12 +12,22 @@ export interface TurnResult extends AnsweredTurn {
   covered: KeyPoint[];
   missed: KeyPoint[];
   score: number;
+  // Ye sab sirf AI scoring me aate hain (keyword scoring me nahi):
+  // 1-2 line ki salah, kya achha tha, kya sudhaarna hai, aur user ke jawab ka behtar version
+  feedback?: string;
+  strengths?: string[];
+  improvements?: string[];
+  betterAnswer?: string;
 }
 
 export interface DemoReport {
   overall: number;
   skills: { label: string; score: number }[];
   turns: TurnResult[];
+  // AI scoring: poore interview ka nichod, strengths aur aage kis pe kaam karna hai
+  summary?: string;
+  strengths?: string[];
+  focusAreas?: string[];
 }
 
 const normalize = (text: string) => ` ${text.toLowerCase().replace(/\s+/g, " ")} `;

@@ -15,6 +15,7 @@ import {
   FiX,
 } from "react-icons/fi";
 import Logo from "../components/Logo";
+import ThemeToggle from "../components/ThemeToggle";
 import { useAppSelector } from "../redux/hooks";
 import { selectIsAuthenticated } from "../redux/selector";
 import { TOPICS } from "../data/topics";
@@ -130,6 +131,7 @@ const LandingPage = () => {
           <a href="#faq">FAQ</a>
         </div>
         <div className="nav__actions">
+          <ThemeToggle />
           {isAuthenticated ? (
             <Link to="/dashboard" className="btn btn--primary">
               Dashboard <FiArrowRight />

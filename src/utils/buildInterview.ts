@@ -1,6 +1,5 @@
-import { DEMO_ROLES } from "../data/demoInterview";
-import type { DemoQuestion, DemoRoleId } from "../data/demoInterview";
-import { TARGET_ROLES, experienceLabel, labelOf } from "../data/interviewSetup";
+import type { DemoQuestion } from "../data/demoInterview";
+import { TARGET_ROLES, difficultyLabel, experienceLabel, labelOf } from "../data/interviewSetup";
 import type { InterviewConfig, InterviewType } from "../types/interview.types";
 
 const TYPE_PHRASE: Record<InterviewType, string> = {
@@ -8,49 +7,21 @@ const TYPE_PHRASE: Record<InterviewType, string> = {
   BEHAVIORAL: "behavioral",
   HR: "HR",
   MIXED: "mixed HR and technical",
+  CODING: "coding",
 };
 
-const bank = (id: DemoRoleId) => DEMO_ROLES.find((r) => r.id === id)!.questions;
-
-// Role ke hisaab se technical sawaal
-const technicalQuestions = (config: InterviewConfig): DemoQuestion[] => {
-  const fe = bank("frontend");
-  const be = bank("backend");
-  if (config.targetRole === "frontend") return fe;
-  if (config.targetRole === "backend") return be;
-  return [fe[1], be[1], be[0]]; // full stack: React perf, API design, security
-};
-
-const pickQuestions = (config: InterviewConfig): DemoQuestion[] => {
-  const hr = bank("hr");
-  const tech = technicalQuestions(config);
-  switch (config.type) {
-    case "TECHNICAL":
-      return tech;
-    case "BEHAVIORAL":
-      return [hr[1], hr[0], hr[2]]; // problem-solving story se shuru
-    case "HR":
-      return hr;
-    case "MIXED":
-      return [hr[0], ...tech.slice(0, 2)];
-  }
-};
-
-// Setup config se interview ke sawaal. Abhi frontend ke question bank se aate hain;
-// jab backend AI se sawaal banayega (JD + resume ke hisaab se), ye function hat jayega.
-export const buildInterview = (config: InterviewConfig, userName?: string) => {
-  let questions = pickQuestions(config);
-
-  // Beginner me follow-up nahi
-  if (config.difficulty === "BEGINNER") {
-    questions = questions.map((q) => ({ ...q, followUps: [] }));
-  }
-
+// Setup config + AI (backend, Groq) ke sawaal se interview room ka title aur intro.
+// Sawaal hamesha AI se aate hain; Beginner me follow-up AI khud nahi banata.
+export const buildInterview = (config: InterviewConfig, questions: DemoQuestion[], userName?: string) => {
   const title = labelOf(TARGET_ROLES, config.targetRole);
-  const experience = experienceLabel(config.experienceYears);
+  // Purane saved config me techStack nahi tha
+  const experience = [config.techStack, experienceLabel(config.experienceYears)].filter(Boolean).join(", ");
   const greeting = userName ? `Hi ${userName.split(" ")[0]}, thanks for joining.` : "Hi, thanks for joining.";
 
-  const intro = `${greeting} This is a ${TYPE_PHRASE[config.type]} interview for a ${title} role (${experience}). I'll ask ${questions.length} questions. Take your time and think out loud. Let's begin.`;
+  const intro =
+    config.type === "CODING"
+      ? `${greeting} This is a ${difficultyLabel(config.difficulty, "CODING").toLowerCase()} coding round for a ${title} role (${experience}). I'll give you a few problems, one at a time. For each one, explain your approach, write the code, and tell me the time and space complexity. Let's begin.`
+      : `${greeting} This is a ${TYPE_PHRASE[config.type]} interview for a ${title} role (${experience}). Each answer has its own timer. Take your time and think out loud. Let's begin.`;
 
   return { title, questions, intro };
 };

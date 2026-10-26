@@ -280,18 +280,6 @@
   text-overflow: ellipsis;
 }
 
-.interview__progress {
-  height: 3px;
-  background: var(--surface-2);
-}
-
-.interview__progress span {
-  display: block;
-  height: 100%;
-  background: linear-gradient(90deg, var(--brand), #8b5cf6);
-  transition: width 0.5s ease;
-}
-
 .interview__chat {
   flex: 1;
   overflow-y: auto;
@@ -426,6 +414,178 @@
   }
 }
 
+/* ============ Voice answers ============ */
+.msg--voice {
+  min-width: min(320px, 100%);
+}
+
+.voice-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.voice-note__btn {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.voice-note__btn:hover {
+  background: var(--brand-strong);
+}
+
+.voice-note__track {
+  flex: 1;
+  height: 4px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--brand) 25%, transparent);
+  overflow: hidden;
+}
+
+.voice-note__track span {
+  display: block;
+  height: 100%;
+  background: var(--brand);
+  transition: width 0.2s linear;
+}
+
+.voice-note__time {
+  min-width: 34px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-2);
+}
+
+.msg__status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: left;
+}
+
+.msg__status .spinner {
+  width: 14px;
+  height: 14px;
+}
+
+.msg__status--error {
+  align-items: flex-start;
+  color: var(--danger);
+}
+
+.msg__status--error svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.msg__transcript-toggle {
+  display: block;
+  margin: 8px 0 0 auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--brand);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.msg__transcript {
+  margin-top: 6px !important;
+  padding-top: 8px;
+  border-top: 1px dashed color-mix(in srgb, var(--brand) 30%, transparent);
+  font-size: 14px !important;
+  color: var(--ink-2) !important;
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+/* Recording chal rahi hai: composer me text box ki jagah */
+.recorder {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 84px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--danger);
+  background: color-mix(in srgb, var(--danger) 8%, var(--surface));
+}
+
+.recorder__dot {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--danger);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.recorder__time {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.recorder__wave {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 40px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.recorder__wave span {
+  flex: 1;
+  max-width: 4px;
+  min-height: 3px;
+  border-radius: 3px;
+  background: var(--danger);
+  transition: height 0.08s linear;
+}
+
+.recorder__label {
+  font-size: 13px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.composer__error {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--danger);
+}
+
+.composer__error svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+@media (max-width: 560px) {
+  .recorder__label {
+    display: none;
+  }
+}
+
 /* ============ Demo: report ============ */
 .report-page {
   max-width: 920px;
@@ -548,6 +708,129 @@
   color: var(--ink-2);
   font-size: 14px;
   white-space: pre-wrap;
+}
+
+/* AI ki salah, jawab ke neeche */
+.answer-card__feedback {
+  margin: 10px 0 0;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--brand-soft);
+  color: var(--ink);
+  font-size: 14px;
+}
+
+/* "Your answer", "Key points" jaise chhote headings */
+.answer-card__label {
+  display: block;
+  margin-top: 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.answer-card__label + .answer-card__answer {
+  margin-top: 6px;
+}
+
+.answer-card__answer--empty {
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* Kya achha tha / kya sudhaaro: do column, phone pe ek ke neeche ek */
+.coach {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.coach__col {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+}
+
+.coach__col--good {
+  background: var(--success-soft);
+}
+
+.coach__col--fix {
+  background: var(--danger-soft);
+}
+
+.coach__title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.coach__col--good .coach__title svg {
+  color: var(--success);
+}
+
+.coach__col--fix .coach__title svg {
+  color: var(--danger);
+}
+
+.coach__col ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  color: var(--ink-2);
+}
+
+.coach__col li + li {
+  margin-top: 4px;
+}
+
+/* Behtar jawab: sabse kaam ki cheez, isliye alag se highlight */
+.better-answer {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--brand);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}
+
+.better-answer__title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.better-answer p {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink);
+  white-space: pre-wrap;
+}
+
+/* Poore interview ka nichod (report ke upar) */
+.report-summary {
+  margin-top: 24px;
+  padding: 20px 22px;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+}
+
+.report-summary h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.report-summary > p {
+  margin: 8px 0 0;
+  color: var(--ink-2);
+  line-height: 1.6;
 }
 
 .score-pill {
@@ -707,4 +990,71 @@
   .score-ring {
     animation: none;
   }
+}
+
+/* ============ Report: collapsible answer cards ============ */
+.answers__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.answers__head h2 {
+  margin-bottom: 0;
+}
+
+.answers__toggle-all {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brand);
+  cursor: pointer;
+}
+
+.answer-card__toggle {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.answer-card__toggle:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 4px;
+  border-radius: 6px;
+}
+
+.answer-card__side {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.answer-card__chev {
+  color: var(--muted);
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+
+.answer-card.is-open .answer-card__chev {
+  transform: rotate(180deg);
+}
+
+.answer-card:not(.is-open):hover {
+  border-color: color-mix(in srgb, var(--brand) 40%, var(--line));
+}
+
+.answer-card__body {
+  margin-top: 4px;
+  animation: fade-in 0.2s ease-out;
 }

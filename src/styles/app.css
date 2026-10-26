@@ -325,49 +325,10 @@
   margin-bottom: 14px;
 }
 
-/* ============ Start interview card ============ */
-.start-card {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  padding: 32px;
-  border-radius: 20px;
-  background:
-    radial-gradient(500px 240px at 100% 0%, color-mix(in srgb, var(--brand) 22%, transparent), transparent 70%),
-    var(--surface);
-  border: 1px solid color-mix(in srgb, var(--brand) 35%, var(--line));
-}
-
-.start-card__icon {
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
-  background: var(--brand-soft);
-  color: var(--brand);
-  font-size: 26px;
-}
-
-.start-card__body {
-  flex: 1;
-}
-
-.start-card h2 {
-  font-size: 22px;
-}
-
-.start-card p {
-  margin-top: 6px;
-  color: var(--muted);
-  max-width: 460px;
-}
-
 /* ============ Stats ============ */
 .stats {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
 }
 
@@ -484,6 +445,37 @@
   text-align: center;
 }
 
+/* ============ Interview room: AI sawaal bana raha / score de raha ============ */
+.room-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 520px;
+  margin: 48px auto;
+  padding: 40px 24px;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  text-align: center;
+}
+
+.room-status h2 {
+  margin: 6px 0 0;
+}
+
+.room-status p {
+  margin: 0;
+}
+
+.room-status__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
 /* ============ Report detail + interview inside app ============ */
 .report-back {
   display: flex;
@@ -514,14 +506,8 @@
     padding: 8px 10px;
   }
 
-  .start-card {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 24px;
-  }
-
   .stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .app-main .interview {
@@ -536,5 +522,559 @@
 @media (max-width: 420px) {
   .app-header .logo__text {
     display: none;
+  }
+}
+
+/* ============ Theme toggle ============ */
+.theme-toggle {
+  border-radius: 50%;
+}
+
+.nav__actions {
+  align-items: center;
+}
+
+.demo__bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.auth__panel {
+  position: relative;
+}
+
+.auth__theme {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+/* ============ Interview status + skeleton ============ */
+.status-pill {
+  flex-shrink: 0;
+  min-width: 64px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  background: var(--surface-2);
+  color: var(--muted);
+}
+
+.status-pill--in_progress {
+  background: rgba(245, 158, 11, 0.16);
+  color: #d97706;
+}
+
+.status-pill--completed {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.interview-row--skeleton {
+  height: 70px;
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-2) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* ============ Interview detail ============ */
+.detail-wrap {
+  max-width: 920px;
+  padding-top: 16px;
+}
+
+.detail-card {
+  padding: 28px;
+  border-radius: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.detail-card--skeleton {
+  height: 260px;
+  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-2) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.2s linear infinite;
+}
+
+.detail-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.detail-card__head h1 {
+  margin-top: 4px;
+  font-size: clamp(22px, 3vw, 28px);
+}
+
+.detail-card__label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 22px 0 0;
+}
+
+.detail-grid div {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+}
+
+.detail-grid dt {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.detail-grid dd {
+  margin: 2px 0 0;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detail-jd {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.detail-jd p {
+  margin-top: 8px;
+  color: var(--ink-2);
+  white-space: pre-wrap;
+}
+
+.detail-jd .text-link {
+  margin-top: 8px;
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--brand);
+  cursor: pointer;
+}
+
+.detail-notice {
+  margin: 0 0 16px;
+}
+
+@media (max-width: 760px) {
+  .detail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detail-card {
+    padding: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interview-row--skeleton,
+  .detail-card--skeleton {
+    animation: none;
+  }
+}
+
+/* ============ Dashboard ============ */
+.page--wide {
+  max-width: 1120px;
+}
+
+.stat__hint {
+  grid-column: 2;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.dash-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+  align-items: center;
+  gap: 28px;
+  padding: 32px;
+  border-radius: 22px;
+  background:
+    radial-gradient(520px 260px at 100% 0%, rgba(255, 255, 255, 0.16), transparent 70%),
+    linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #e6e4ff;
+}
+
+.dash-hero__eyebrow {
+  font-size: 14px;
+  font-weight: 600;
+  color: #c9c5ff;
+}
+
+.dash-hero h1 {
+  margin-top: 2px;
+  font-size: clamp(28px, 3.6vw, 38px);
+  color: #fff;
+}
+
+.dash-hero p {
+  margin-top: 8px;
+  max-width: 460px;
+}
+
+.dash-hero__cta {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 4px 14px;
+  padding: 18px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.dash-hero__cta strong {
+  display: block;
+  color: #fff;
+}
+
+.dash-hero__cta span:not(.dash-hero__icon) {
+  font-size: 13px;
+}
+
+.dash-hero__cta .btn {
+  grid-column: 1 / -1;
+  margin-top: 12px;
+}
+
+.dash-hero__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  font-size: 22px;
+}
+
+.dash-cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 24px;
+  align-items: start;
+}
+
+.dash-side {
+  display: grid;
+  gap: 16px;
+}
+
+.panel {
+  padding: 20px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+.panel__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.panel__head .app-section-title {
+  font-size: 16px;
+}
+
+/* Tooltip: [data-tip] pe hover/focus */
+[data-tip] {
+  position: relative;
+}
+
+[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  translate: -50% 0;
+  z-index: 5;
+  padding: 5px 9px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Last 7 days: vertical bars */
+.bars {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 6px;
+  height: 150px;
+  padding-top: 18px;
+}
+
+.bars__col {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 6px;
+  min-width: 0;
+}
+
+.bars__track {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.bars__bar {
+  display: block;
+  width: 70%;
+  max-width: 26px;
+  min-height: 4px;
+  border-radius: 4px 4px 0 0;
+  background: var(--brand);
+  transition: height 0.4s ease;
+}
+
+.bars__bar.is-zero {
+  height: 3px;
+  background: var(--line);
+}
+
+.bars__value {
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.bars__label {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.bars__col.is-today .bars__label {
+  color: var(--brand);
+  font-weight: 700;
+}
+
+/* Interview types: horizontal bars */
+.hbars {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  display: grid;
+  gap: 12px;
+}
+
+.hbars__row {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) 24px;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.hbars__label {
+  color: var(--ink-2);
+}
+
+.hbars__track {
+  height: 10px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.hbars__bar {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--brand);
+}
+
+.hbars__value {
+  text-align: right;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+@media (max-width: 960px) {
+  .dash-hero,
+  .dash-cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .dash-hero {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============ Delete + confirm dialog ============ */
+.btn--danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn--danger:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.btn--danger-ghost {
+  color: var(--danger);
+}
+
+.btn--danger-ghost:hover:not(:disabled) {
+  background: var(--danger-soft);
+}
+
+.interview-item {
+  position: relative;
+}
+
+/* Row ke chevron ke left me, link ke upar */
+.interview-item .interview-row {
+  padding-right: 64px;
+}
+
+.interview-item__delete {
+  position: absolute;
+  top: 50%;
+  right: 44px;
+  translate: 0 -50%;
+  color: var(--muted);
+  opacity: 0;
+  transition:
+    opacity 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.interview-item:hover .interview-item__delete,
+.interview-item__delete:focus-visible {
+  opacity: 1;
+}
+
+.interview-item__delete:hover:not(:disabled) {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+/* Touch screens pe hover nahi hota, button hamesha dikhe */
+@media (hover: none) {
+  .interview-item__delete {
+    opacity: 1;
+  }
+}
+
+.report-back__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(10, 12, 28, 0.55);
+  backdrop-filter: blur(3px);
+  animation: fade-in 0.15s ease-out;
+}
+
+.dialog {
+  width: min(420px, 100%);
+  padding: 26px;
+  border-radius: 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  animation: dialog-in 0.18s ease-out;
+}
+
+.dialog__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--danger-soft);
+  color: var(--danger);
+  font-size: 20px;
+}
+
+.dialog h2 {
+  margin-top: 14px;
+  font-size: 20px;
+}
+
+.dialog__message {
+  margin-top: 8px;
+  color: var(--ink-2);
+  font-size: 15px;
+}
+
+.dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog-backdrop,
+  .dialog {
+    animation: none;
   }
 }

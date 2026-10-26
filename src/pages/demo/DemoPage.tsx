@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FiX } from "react-icons/fi";
 import Logo from "../../components/Logo";
+import ThemeToggle from "../../components/ThemeToggle";
 import DemoSetup from "./DemoSetup";
 import DemoRoom from "./DemoRoom";
 import DemoReportView from "./DemoReportView";
@@ -47,9 +48,12 @@ const DemoPage = () => {
     <div className={`demo demo--${phase}`}>
       <header className="demo__bar container">
         <Logo />
-        <Link to={isAuthenticated ? "/dashboard" : "/"} className="btn btn--ghost btn--sm">
-          <FiX /> Exit demo
-        </Link>
+        <div className="demo__bar-actions">
+          <ThemeToggle />
+          <Link to={isAuthenticated ? "/dashboard" : "/"} className="btn btn--ghost btn--sm">
+            <FiX /> Exit demo
+          </Link>
+        </div>
       </header>
 
       {phase === "setup" && (

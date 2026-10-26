@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { FiCheck } from "react-icons/fi";
 import Logo from "../components/Logo";
+import ThemeToggle from "../components/ThemeToggle";
 
 interface AuthLayoutProps {
   title: string;
@@ -45,6 +46,9 @@ const AuthLayout = ({ title, subtitle, children }: AuthLayoutProps) => (
     </aside>
 
     <main className="auth__panel">
+      <div className="auth__theme">
+        <ThemeToggle />
+      </div>
       <div className="auth__mobile-logo">
         <Logo />
       </div>

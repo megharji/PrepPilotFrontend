@@ -1,7 +1,7 @@
 import {
-  DIFFICULTIES,
   INTERVIEW_TYPES,
   TARGET_ROLES,
+  difficultyLabel,
   experienceLabel,
   labelOf,
 } from "../../data/interviewSetup";
@@ -16,9 +16,10 @@ const ConfigSummary = ({ config }: { config: InterviewConfig }) => {
   return (
     <ul className="config-chips" aria-label="Interview settings">
       <li>{labelOf(TARGET_ROLES, config.targetRole)}</li>
+      {config.techStack && <li>{config.techStack}</li>}
       <li>{experienceLabel(config.experienceYears)}</li>
       <li>{labelOf(INTERVIEW_TYPES, config.type)}</li>
-      <li>{labelOf(DIFFICULTIES, config.difficulty)}</li>
+      <li>{difficultyLabel(config.difficulty, config.type)}</li>
       {hasJd && <li>Job description</li>}
       {hasResume && <li>{config.resume!.name}</li>}
       {!hasJd && !hasResume && <li className="is-off">General questions</li>}

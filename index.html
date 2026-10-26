@@ -5,6 +5,14 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PrepPilot</title>
+    <script>
+      // Pehle paint se pehle theme lagao (warna jhatka dikhta). Default dark; light sirf jab user ne chuna ho.
+      var theme = "dark";
+      try {
+        if (localStorage.getItem("preppilot-theme") === "light") theme = "light";
+      } catch (e) {}
+      document.documentElement.dataset.theme = theme;
+    </script>
     <meta name="description" content="Prepare for tech interviews: DSA, system design, frontend, backend and behavioral." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

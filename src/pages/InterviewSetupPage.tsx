@@ -35,6 +35,7 @@ type Draft = Omit<InterviewConfig, "targetRole" | "experienceYears" | "resume"> 
 
 const EMPTY_DRAFT: Draft = {
   targetRole: null,
+  techStack: "",
   experienceYears: null,
   personalization: "NONE",
   jobDescription: "",
@@ -78,6 +79,12 @@ const InterviewSetupPage = () => {
   const update = <K extends keyof Draft>(key: K, value: Draft[K]) =>
     setDraft((d) => ({ ...d, [key]: value }));
 
+  // Role badla to purana tech hata do (har role ki list alag hai)
+  const changeRole = (role: TargetRoleId) => setDraft((d) => ({ ...d, targetRole: role, techStack: "" }));
+
+  // Purane saved config me techStack nahi tha
+  const techStack = (draft.techStack ?? "").trim();
+
   const needsJd = usesJd(personalization);
   const needsResume = usesResume(personalization);
   const jdReady = !needsJd || draft.jobDescription.trim().length >= JD_MIN_LENGTH;
@@ -85,7 +92,7 @@ const InterviewSetupPage = () => {
 
   // Har step ka "aage ja sakte hain?" check
   const canContinue = {
-    role: !!draft.targetRole,
+    role: !!draft.targetRole && !!techStack,
     experience: typeof draft.experienceYears === "number",
     // Kuch bhi tick na ho to bhi aage (general questions)
     personalize: true,
@@ -101,10 +108,11 @@ const InterviewSetupPage = () => {
       : "";
 
   const config: InterviewConfig | null =
-    draft.targetRole && typeof draft.experienceYears === "number"
+    draft.targetRole && techStack && typeof draft.experienceYears === "number"
       ? {
           ...draft,
           targetRole: draft.targetRole,
+          techStack,
           experienceYears: draft.experienceYears,
           personalization,
           // Jo chuna hi nahi, wo nahi bhejte (chahe pehle bhara ho)
@@ -139,8 +147,10 @@ const InterviewSetupPage = () => {
     dispatch(
       createInterviewRequest({
         targetRole: labelOf(TARGET_ROLES, config.targetRole),
+        techStack: config.techStack,
         experienceYears: config.experienceYears,
         jobDescription: config.jobDescription || undefined,
+        resumeId: config.resume?.id,
         interviewType: config.type,
         difficulty: config.difficulty,
       }),
@@ -165,7 +175,12 @@ const InterviewSetupPage = () => {
           </span>
 
           {step.id === "role" && (
-            <StepRole value={draft.targetRole} onChange={(v) => update("targetRole", v)} />
+            <StepRole
+              value={draft.targetRole}
+              techStack={draft.techStack ?? ""}
+              onChange={changeRole}
+              onTechStackChange={(v) => update("techStack", v)}
+            />
           )}
           {step.id === "experience" && (
             <StepExperience value={draft.experienceYears} onChange={(v) => update("experienceYears", v)} />
